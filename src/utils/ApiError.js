@@ -6,7 +6,12 @@ class ApiError extends Error {
         stack = ""
     ){
         super(message)
-        this.statusCode = statusCode
+        if(statusCode<100 || statusCode>=1000){
+            this.statusCode=404
+        }
+        else{
+            this.statusCode=statusCode
+        }
         this.data = null
         this.message = message
         this.success = false
@@ -16,7 +21,7 @@ class ApiError extends Error {
         if(stack){
             this.stack = stack
         }else{
-            Error.capstureStackTrace(this, this.constructor)
+            Error.captureStackTrace(this, this.constructor)
         }
     }
 }

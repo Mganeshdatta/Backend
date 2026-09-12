@@ -5,14 +5,14 @@
 //     }
 // }
 
-const asyncHandler = (fun) => async (req,res,next) => {
-    try{
-        await fun(req,res,next)
-    }catch(error){
-        res.status(err.code || 500).json({
-            success : false,
-            message: err.message
-        })
+const asyncHandler = (asyncfunc) => {
+    return async (req,res,next) => {
+        try{
+            return await asyncfunc(req,res,next)
+        }catch(error){
+            console.log("505 error occured while executing an asynchronous function")
+            console.log(error)
+        }
     }
 }
 
